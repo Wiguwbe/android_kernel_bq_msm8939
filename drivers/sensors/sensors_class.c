@@ -22,6 +22,10 @@
 #include <linux/sensors.h>
 #include <linux/string.h>
 
+#include <linux/usb/composite.h>
+#include "../input/touchscreen/tpinfo/lct_ctp_upgrade.h"
+#include "../input/touchscreen/tpinfo/lct_tp_fm_info.h"
+
 #define APPLY_MASK	0x00000001
 
 #define CMD_W_L_MASK 0x00
