@@ -294,8 +294,7 @@ void __init parse_early_options(char *cmdline);
 #define security_initcall(fn)		module_init(fn)
 
 /* Each module must use one module_init(). */
-#ifndef _MODULE_INIT_DECLARATION_ERROR
-#define _MODULE_INIT_DECLARATION_ERROR
+#ifndef module_init(initfn)
 #define module_init(initfn)					\
 	static inline initcall_t __inittest(void)		\
 	{ return initfn; }					\
@@ -303,8 +302,7 @@ void __init parse_early_options(char *cmdline);
 #endif
 
 /* This is only required if you want to be unloadable. */
-#ifndef _MODULE_EXIT_DECLARATION_ERROR
-#define _MODULE_EXIT_DECLARATION_ERROR
+#ifndef module_exit(exitfn)
 #define module_exit(exitfn)					\
 	static inline exitcall_t __exittest(void)		\
 	{ return exitfn; }					\
