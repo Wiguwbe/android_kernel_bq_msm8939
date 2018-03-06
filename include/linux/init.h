@@ -294,16 +294,22 @@ void __init parse_early_options(char *cmdline);
 #define security_initcall(fn)		module_init(fn)
 
 /* Each module must use one module_init(). */
+#ifndef _MODULE_INIT_DECLARATION_ERROR
+#define _MODULE_INIT_DECLARATION_ERROR
 #define module_init(initfn)					\
 	static inline initcall_t __inittest(void)		\
 	{ return initfn; }					\
 	int init_module(void) __attribute__((alias(#initfn)));
+#endif
 
 /* This is only required if you want to be unloadable. */
+#ifndef _MODULE_EXIT_DECLARATION_ERROR
+#define _MODULE_EXIT_DECLARATION_ERROR
 #define module_exit(exitfn)					\
 	static inline exitcall_t __exittest(void)		\
 	{ return exitfn; }					\
 	void cleanup_module(void) __attribute__((alias(#exitfn)));
+#endif
 
 #define __setup_param(str, unique_id, fn)	/* nothing */
 #define __setup(str, func) 			/* nothing */
